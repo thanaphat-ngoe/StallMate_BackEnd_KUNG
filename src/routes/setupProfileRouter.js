@@ -33,15 +33,15 @@ router.put('/:seller_id/profile', isLoggedIn, upload.fields([{ name: 'profilePho
             owner_profile: {
                 full_name: fullName,
                 profile_photo: profilePhotoUrl,
-                bio,
+                bio: bio,
                 experience_years: experienceYears
             },
             restaurant: {
                 name: restaurantName,
                 photo: restaurantPhotoUrl,
-                location,
+                location: location,
                 opening_hours: openingHours,
-                contact
+                contact: contact
             }
         });
 
@@ -52,7 +52,6 @@ router.put('/:seller_id/profile', isLoggedIn, upload.fields([{ name: 'profilePho
         res.status(500).json({ error: 'Failed to create profile' });
     }
 });
-
 
 router.post('/:seller_id/profile', isLoggedIn, upload.fields([{ name: 'profilePhoto' }, { name: 'restaurantPhoto' }]), async (req, res) => {
     try {
