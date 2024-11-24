@@ -12,11 +12,13 @@ const authRouter = require('./routes/authRouter');
 const homeRouter = require('./routes/homeRouter');
 const menuRouter = require('./routes/menuRouter');
 const orderRouter = require('./routes/orderRouter');
-const customerOrderRouter = require('./routes/customerOrderRouter');
+// const customerOrder = require('./routes/customerOrderRouter');
 const setupProfileRouter = require('./routes/setupProfileRouter');
 const favoriteStallRouter = require('./routes/favoriteStallRouter');
 const ratingRouter = require('./routes/ratingRouter');
 // const billingCardRouter = require('./routes/customerPaymentRouter');
+const walletHistory = require('./routes/walletHistory');
+const customerEditProfile = require('./routes/customerEditProfile');
 
 // Middleware
 const isLoggedIn = require('./middleware/authMiddleware');
@@ -37,7 +39,7 @@ app.use(cors({
 
 // Middleware: Session Management
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'StallMateSecret', // Use an environment variable for the secret
+    secret: process.env.SESSION_SECRET || 'StallMate', // Use an environment variable for the secret
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
@@ -77,25 +79,15 @@ if (process.env.NODE_ENV === 'development') {
 app.use('/', homeRouter);
 app.use('/auth', authRouter);
 app.use('/dashboard/stallowner', isLoggedIn, setupProfileRouter);
+// app.use('/dashboard/stallowner', isLoggedIn, cart);
 app.use('/dashboard/stallowner', isLoggedIn, orderRouter);
 app.use('/dashboard/stallowner', isLoggedIn, menuRouter);
-app.use('/dashboard/customer', isLoggedIn, customerOrderRouter);
+// app.use('/dashboard/customer', isLoggedIn, customerOrder);
 app.use('/dashboard/customer', isLoggedIn, ratingRouter);
 app.use('/dashboard/customer', isLoggedIn, favoriteStallRouter);
-
-// Uncomment if needed
 // app.use('/dashboard/customer', isLoggedIn, billingCardRouter);
-
-// 404 Handler
-app.use((req, res, next) => {
-    res.status(404).json({ error: 'Route not found' });
-});
-
-// Global Error Handler
-app.use((err, req, res, next) => {
-    console.error('Server Error:', err);
-    res.status(500).json({ error: 'Internal Server Error' });
-});
+app.use('/dashboard/stallowner', isLoggedIn, walletHistory);
+app.use('/dashboard/customer', isLoggedIn, customerEditProfile);
 
 // Server Start
 const PORT = process.env.PORT || 3000;

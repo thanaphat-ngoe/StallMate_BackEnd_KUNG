@@ -1,4 +1,5 @@
-/*const express = require("express");
+/*
+const express = require("express");
 const Stripe = require("stripe");
 const Customer = require("../models/Customer_credential");
 const isLoggedIn = require("../middleware/authMiddleware");
@@ -67,4 +68,5 @@ router.put("/:customer_id/add-card", isLoggedIn, async (req, res) => {
     }
 });
 
-module.exports = router;*/
+module.exports = router;
+*/

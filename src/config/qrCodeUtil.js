@@ -4,12 +4,11 @@ const s3Client = require('./s3Client');
 const { Menu } = require('../models/menuSchema');
 const { PutObjectCommand } = require('@aws-sdk/client-s3');
 
-/*
+/**
  * Generate QR code, upload it to S3, and save the URL in the menu schema.
  * @param {ObjectId} userId 
  * @returns {Promise<string>} 
-*/
-
+ */
 async function generateAndSaveQRCode(userID) {
     try {
         // const menuUrl = `http://ec2-13-215-252-79.ap-southeast-1.compute.amazonaws.com:3000/auth/customer/google?redirectTo=/dashboard/stallowner/${userID}/menu`;

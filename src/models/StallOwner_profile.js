@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const moment = require('moment-timezone');
 
-
 const openingHoursSchema = new mongoose.Schema({
     weekday: { type: String, required: true },
     open_time: { type: String, required: true },
